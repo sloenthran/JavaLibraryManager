@@ -22,7 +22,10 @@ public class BookHire {
     @NotNull
     private Long id;
 
-    //TODO Add reference to Book
+    @ManyToOne
+    @JoinColumn(name = "book_id", nullable = false)
+    @NotNull
+    private Book book;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

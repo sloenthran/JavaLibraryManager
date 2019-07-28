@@ -17,6 +17,4 @@ public class BookHireController {
     public BookHireController(BookHireRepository repository) {
         this.repository = repository;
     }
-
-    //TODO
 }

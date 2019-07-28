@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Dawid Nogacz on 28.07.2019
@@ -29,4 +31,12 @@ public class Book {
     @NotNull
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus;
+
+    @OneToMany(
+            targetEntity = BookHire.class,
+            mappedBy = "book",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<BookHire> bookHires = new ArrayList<>();
 }

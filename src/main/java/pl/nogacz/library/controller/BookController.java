@@ -18,6 +18,4 @@ public class BookController {
     public BookController(@Autowired BookRepository bookRepository) {
         this.bookRepository = bookRepository;
     }
-
-    //TODO
 }
