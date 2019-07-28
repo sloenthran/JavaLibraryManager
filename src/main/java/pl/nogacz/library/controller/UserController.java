@@ -30,11 +30,6 @@ public class UserController {
 
     @PostMapping(value = "addUser")
     public void addUser(@RequestBody User user) {
-        dbService.saveUser(user);
-    }
-
-    @DeleteMapping(value = "deleteUser")
-    public void deleteUser(@RequestParam("id") Long id) {
-        dbService.deleteUser(id);
+        dbService.addUser(user);
     }
 }

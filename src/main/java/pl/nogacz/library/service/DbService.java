@@ -36,11 +36,7 @@ public class DbService {
         return userRepository.findAll();
     }
 
-    public void saveUser(User user) {
+    public void addUser(User user) {
         userRepository.save(user);
-    }
-
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
     }
 }
