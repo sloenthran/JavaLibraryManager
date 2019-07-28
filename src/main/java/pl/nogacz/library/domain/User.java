@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Dawid Nogacz on 28.07.2019
@@ -31,4 +33,12 @@ public class User {
     @Column(name = "date", nullable = false)
     @NotNull
     private LocalDate date;
+
+    @OneToMany(
+            targetEntity = BookHire.class,
+            mappedBy = "bookTitle",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    private List<BookHire> booksHire = new ArrayList<>();
 }
