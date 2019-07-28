@@ -36,7 +36,7 @@ public class User {
 
     @OneToMany(
             targetEntity = BookHire.class,
-            mappedBy = "bookTitle",
+            mappedBy = "user",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
