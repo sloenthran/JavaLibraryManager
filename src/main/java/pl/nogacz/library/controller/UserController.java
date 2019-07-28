@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.library.controller.exception.UserNotFoundException;
 import pl.nogacz.library.domain.User;
-import pl.nogacz.library.service.DbService;
+import pl.nogacz.library.repository.UserRepository;
 
 import java.util.List;
 
@@ -13,23 +13,31 @@ import java.util.List;
  */
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping(value = "/api/user", produces = "application/json")
+@RequestMapping(value = "/v1/user", produces = "application/json")
 public class UserController {
-    @Autowired
-    private DbService dbService;
+    private UserRepository repository;
+
+    public UserController(@Autowired UserRepository repository) {
+        this.repository = repository;
+    }
 
     @GetMapping(value = "getUser")
     public User getUser(@RequestParam("id") Long id) throws UserNotFoundException {
-        return dbService.getUser(id).orElseThrow(UserNotFoundException::new);
+        return repository.findById(id).orElseThrow(UserNotFoundException::new);
     }
 
     @GetMapping(value = "getUsers")
     public List<User> getUsers() {
-        return dbService.getUsers();
+        return repository.findAll();
     }
 
-    @PostMapping(value = "addUser")
+    @PostMapping(value = "addUser", consumes = "application/json")
     public void addUser(@RequestBody User user) {
-        dbService.addUser(user);
+        repository.save(user);
+    }
+
+    @PutMapping(value = "updateUser", consumes = "application/json")
+    public User updateUser(@RequestBody User user) {
+        return repository.save(user);
     }
 }

@@ -27,5 +27,6 @@ public class Book {
 
     @Column(name = "status", nullable = false)
     @NotNull
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private BookStatus bookStatus;
 }
