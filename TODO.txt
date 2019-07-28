@@ -1,11 +1,3 @@
-#title
-addTitle
-
-#book
-getAvailableStatus
-getBook
-updateBook
-
 #hire
 getAvailableBookWithTitle(String title)
 hireBook
