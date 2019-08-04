@@ -1,5 +1,7 @@
 package pl.nogacz.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,6 +27,7 @@ public class Book {
     @ManyToOne
     @JoinColumn(name = "title_id", nullable = false)
     @NotNull
+    @JsonBackReference
     private BookTitle bookTitle;
 
     @Column(name = "status", nullable = false)
@@ -38,5 +41,6 @@ public class Book {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
+    @JsonManagedReference
     private List<BookHire> bookHires = new ArrayList<>();
 }

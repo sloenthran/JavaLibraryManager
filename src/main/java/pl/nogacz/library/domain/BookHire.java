@@ -1,5 +1,6 @@
 package pl.nogacz.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,11 +26,13 @@ public class BookHire {
     @ManyToOne
     @JoinColumn(name = "book_id", nullable = false)
     @NotNull
+    @JsonBackReference
     private Book book;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     @NotNull
+    @JsonBackReference
     private User user;
 
     @Column(name = "date_rental", nullable = false)

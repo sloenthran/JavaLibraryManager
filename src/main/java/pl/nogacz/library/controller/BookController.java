@@ -1,5 +1,6 @@
 package pl.nogacz.library.controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.library.controller.exception.BookNotFoundException;
@@ -25,7 +26,11 @@ public class BookController {
     private BookHireRepository bookHireRepository;
     private BookTitleRepository bookTitleRepository;
 
-    public BookController(@Autowired BookRepository bookRepository, @Autowired BookHireRepository bookHireRepository, @Autowired BookTitleRepository bookTitleRepository) {
+    public BookController(
+            @Autowired BookRepository bookRepository,
+            @Autowired BookHireRepository bookHireRepository,
+            @Autowired BookTitleRepository bookTitleRepository
+    ) {
         this.bookRepository = bookRepository;
         this.bookHireRepository = bookHireRepository;
         this.bookTitleRepository = bookTitleRepository;
@@ -70,4 +75,7 @@ public class BookController {
 
         return availableBooks;
     }
+
+    //TODO Book Rent
+    //TODO Book Rent Back
 }

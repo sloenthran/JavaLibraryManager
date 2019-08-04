@@ -1,5 +1,6 @@
 package pl.nogacz.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
 import javax.persistence.*;
@@ -40,5 +41,6 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @JsonManagedReference
     private List<BookHire> booksHire = new ArrayList<>();
 }

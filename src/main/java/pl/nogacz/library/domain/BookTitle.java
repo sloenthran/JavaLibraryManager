@@ -1,5 +1,6 @@
 package pl.nogacz.library.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,5 +43,6 @@ public class BookTitle {
             cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
+    @JsonManagedReference
     private List<Book> books = new ArrayList<>();
 }
