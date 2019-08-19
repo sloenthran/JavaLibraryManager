@@ -1,19 +1,20 @@
 package pl.nogacz.library.controller;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.library.controller.exception.BookNotFoundException;
+import pl.nogacz.library.controller.exception.BookNotInLibraryException;
 import pl.nogacz.library.controller.exception.TitleNotFoundException;
-import pl.nogacz.library.domain.Book;
-import pl.nogacz.library.domain.BookStatus;
-import pl.nogacz.library.domain.BookTitle;
+import pl.nogacz.library.controller.exception.UserNotFoundException;
+import pl.nogacz.library.domain.*;
 import pl.nogacz.library.repository.BookHireRepository;
 import pl.nogacz.library.repository.BookRepository;
 import pl.nogacz.library.repository.BookTitleRepository;
+import pl.nogacz.library.repository.UserRepository;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Dawid Nogacz on 28.07.2019
@@ -25,15 +26,18 @@ public class BookController {
     private BookRepository bookRepository;
     private BookHireRepository bookHireRepository;
     private BookTitleRepository bookTitleRepository;
+    private UserRepository userRepository;
 
     public BookController(
-            @Autowired BookRepository bookRepository,
-            @Autowired BookHireRepository bookHireRepository,
-            @Autowired BookTitleRepository bookTitleRepository
+            BookRepository bookRepository,
+            BookHireRepository bookHireRepository,
+            BookTitleRepository bookTitleRepository,
+            UserRepository userRepository
     ) {
         this.bookRepository = bookRepository;
         this.bookHireRepository = bookHireRepository;
         this.bookTitleRepository = bookTitleRepository;
+        this.userRepository = userRepository;
     }
 
     @PostMapping(value = "addTitle", consumes = "application/json")
@@ -76,6 +80,31 @@ public class BookController {
         return availableBooks;
     }
 
-    //TODO Book Rent
-    //TODO Book Rent Back
+    @PostMapping(value = "rentBook", consumes = "application/json")
+    public void rentBook(@RequestParam Long userId, @RequestParam Long bookId) throws Exception {
+        Book book = bookRepository.findById(bookId).orElseThrow(BookNotFoundException::new);
+        User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+
+        if(book.getBookStatus().equals(BookStatus.IN_LIBRARY)) {
+            BookHire bookHire = new BookHire();
+            bookHire.setBook(book);
+            bookHire.setUser(user);
+            bookHire.setDateRental(LocalDate.now());
+            bookHire.setDateReturn(LocalDate.now().plusDays(30));
+
+            bookHireRepository.save(bookHire);
+
+            book.setBookStatus(BookStatus.LOANED);
+
+            bookRepository.save(book);
+        } else {
+            throw new BookNotInLibraryException();
+        }
+    }
+
+    @DeleteMapping(value = "returnBook", consumes = "application/json")
+    public void returnBook(@RequestParam Long userId, @RequestParam Long bookId) throws BookNotFoundException {
+        BookHire bookHire = bookHireRepository.findByUser_IdAndBook_Id(userId, bookId).orElseThrow(BookNotFoundException::new);
+        bookHireRepository.delete(bookHire);
+    }
 }

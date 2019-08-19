@@ -1,6 +1,5 @@
 package pl.nogacz.library.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.library.controller.exception.UserNotFoundException;
 import pl.nogacz.library.domain.User;
@@ -17,7 +16,7 @@ import java.util.List;
 public class UserController {
     private UserRepository repository;
 
-    public UserController(@Autowired UserRepository repository) {
+    public UserController(UserRepository repository) {
         this.repository = repository;
     }
 
