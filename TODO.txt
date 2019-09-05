@@ -1,4 +1,0 @@
-#hire
-getAvailableBookWithTitle(String title)
-hireBook
-returnBook

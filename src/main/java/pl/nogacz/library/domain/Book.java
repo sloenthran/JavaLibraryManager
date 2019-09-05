@@ -11,9 +11,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Dawid Nogacz on 28.07.2019
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,24 +18,23 @@ import java.util.List;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "title_id", nullable = false)
     @NotNull
+    @ManyToOne
+    @JoinColumn(name = "title_id")
     @JsonBackReference
     private BookTitle bookTitle;
 
-    @Column(name = "status", nullable = false)
     @NotNull
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private BookStatus bookStatus;
 
     @OneToMany(
             targetEntity = BookHire.class,
             mappedBy = "book",
-            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     @JsonManagedReference

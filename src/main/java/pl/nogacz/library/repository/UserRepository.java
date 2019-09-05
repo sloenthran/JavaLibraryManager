@@ -7,9 +7,6 @@ import pl.nogacz.library.domain.User;
 import javax.transaction.Transactional;
 import java.util.List;
 
-/**
- * @author Dawid Nogacz on 28.07.2019
- */
 @Transactional
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {

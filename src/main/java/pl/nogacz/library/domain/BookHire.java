@@ -19,24 +19,23 @@ import java.time.LocalDate;
 public class BookHire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @NotNull
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "book_id", nullable = false)
     @NotNull
+    @ManyToOne
+    @JoinColumn(name = "book_id")
     @JsonBackReference
     private Book book;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
     @NotNull
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     @JsonBackReference
     private User user;
 
-    @Column(name = "date_rental", nullable = false)
     @NotNull
+    @Column(name = "date_rental")
     private LocalDate dateRental;
 
     @Column(name = "date_return")

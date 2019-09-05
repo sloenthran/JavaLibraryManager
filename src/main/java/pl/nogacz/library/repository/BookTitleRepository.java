@@ -7,9 +7,6 @@ import pl.nogacz.library.domain.BookTitle;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
-/**
- * @author Dawid Nogacz on 28.07.2019
- */
 @Transactional
 @Repository
 public interface BookTitleRepository extends CrudRepository<BookTitle, Long> {

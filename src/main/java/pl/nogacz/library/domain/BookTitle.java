@@ -11,9 +11,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author Dawid Nogacz on 28.07.2019
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -21,26 +18,24 @@ import java.util.List;
 public class BookTitle {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    @NotNull
+    @Column(name = "id")
     private Long id;
 
-    @Column(name = "title", nullable = false)
     @NotNull
+    @Column(name = "title")
     private String title;
 
-    @Column(name = "author", nullable = false)
     @NotNull
+    @Column(name = "author")
     private String author;
 
-    @Column(name = "date", nullable = false)
     @NotNull
+    @Column(name = "date")
     private LocalDate date;
 
     @OneToMany(
             targetEntity = Book.class,
             mappedBy = "bookTitle",
-            cascade = CascadeType.ALL,
             fetch = FetchType.EAGER
     )
     @JsonManagedReference
