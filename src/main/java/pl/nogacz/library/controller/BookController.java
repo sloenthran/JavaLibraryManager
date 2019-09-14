@@ -56,7 +56,7 @@ public class BookController {
     }
 
     @DeleteMapping(value = "returnBook", consumes = "application/json")
-    public void returnBook(@RequestParam Long userId, @RequestParam Long bookId) throws BookNotFoundException {
-        bookService.returnBook(userId, bookId);
+    public void returnBook(@RequestParam Long userId, @RequestParam Long bookId, @RequestParam BookStatus bookStatus) throws BookNotFoundException {
+        bookService.returnBook(userId, bookId, bookStatus);
     }
 }

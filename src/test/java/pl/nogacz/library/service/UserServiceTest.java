@@ -4,10 +4,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import pl.nogacz.library.controller.exception.UserNotFoundException;
 import pl.nogacz.library.domain.User;
-import javax.transaction.Transactional;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public class UserServiceTest {
     UserService userService;
 
     @Test
-    @Transactional
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void getUser() throws UserNotFoundException {
         //Given
         User user = new User(1L, "Dawid", "Nogacz", LocalDate.now(), new ArrayList<>());
@@ -35,7 +35,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @Transactional
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void getUsers() {
         //Given
         userService.saveUser(new User(null, "Dawid", "Nogacz", LocalDate.now(), new ArrayList<>()));
@@ -50,7 +50,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @Transactional
+    @DirtiesContext(methodMode = DirtiesContext.MethodMode.AFTER_METHOD)
     public void saveUser() {
         //Given
         User user = new User(1L, "Dawid", "Nogacz", LocalDate.now(), new ArrayList<>());

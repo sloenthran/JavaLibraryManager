@@ -10,11 +10,13 @@ import pl.nogacz.library.repository.BookHireRepository;
 import pl.nogacz.library.repository.BookRepository;
 import pl.nogacz.library.repository.BookTitleRepository;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Transactional
 public class BookService {
     private BookRepository bookRepository;
     private BookHireRepository bookHireRepository;
@@ -28,8 +30,8 @@ public class BookService {
         this.userService = userService;
     }
 
-    public void addTitle(BookTitle bookTitle) {
-        bookTitleRepository.save(bookTitle);
+    public BookTitle addTitle(BookTitle bookTitle) {
+        return bookTitleRepository.save(bookTitle);
     }
 
     public Book getBook(Long id) throws BookNotFoundException {
@@ -75,8 +77,14 @@ public class BookService {
         }
     }
 
-    public void returnBook(Long userId, Long bookId) throws BookNotFoundException {
+    public void returnBook(Long userId, Long bookId, BookStatus bookStatus) throws BookNotFoundException {
         BookHire bookHire = bookHireRepository.findByUser_IdAndBook_Id(userId, bookId).orElseThrow(BookNotFoundException::new);
+
+        Book book = bookHire.getBook();
+        book.setBookStatus(bookStatus);
+
+        bookRepository.save(book);
+
         bookHireRepository.delete(bookHire);
     }
 }
