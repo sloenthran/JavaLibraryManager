@@ -1,6 +1,6 @@
 # JavaLibraryManager [![Build Status](https://travis-ci.org/sloenthran/JavaLibraryManager.svg?branch=master)](https://travis-ci.org/sloenthran/JavaLibraryManager)
 
-Simple application for managed books in library...
+REST application to manage books in library
 
 ## Technologies
 
