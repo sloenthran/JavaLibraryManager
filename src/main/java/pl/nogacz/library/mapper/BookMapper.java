@@ -36,12 +36,12 @@ public class BookMapper {
         );
     }
 
-    public Book mapBookDtoToBook(final BookDto bookDto) throws TitleNotFoundException, BookNotFoundException {
+    public Book mapBookDtoToBook(final BookDto bookDto) throws TitleNotFoundException, BookNotFoundException, UserNotFoundException {
         return new Book(
                 bookDto.getId(),
                 bookService.getBookTitle(bookDto.getTitleId()),
                 bookDto.getBookStatus(),
-                bookService.getBook(bookDto.getId()).getBookHires()
+                mapListBookHireDtoToListBookHire(bookDto.getBookHires())
         );
     }
 

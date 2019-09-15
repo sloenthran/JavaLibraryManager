@@ -41,17 +41,17 @@ public class BookController {
     }
 
     @PutMapping(value = "updateBook", consumes = "application/json")
-    public BookDto updateBook(@RequestBody BookDto book) throws TitleNotFoundException, BookNotFoundException {
+    public BookDto updateBook(@RequestBody BookDto book) throws TitleNotFoundException, BookNotFoundException, UserNotFoundException {
         return bookMapper.mapBookToBookDto(bookService.saveBook(bookMapper.mapBookDtoToBook(book)));
     }
 
     @PostMapping(value = "addBook", consumes = "application/json")
-    public void addBook(@RequestBody BookDto book) throws TitleNotFoundException, BookNotFoundException {
+    public void addBook(@RequestBody BookDto book) throws TitleNotFoundException, BookNotFoundException, UserNotFoundException {
         bookService.saveBook(bookMapper.mapBookDtoToBook(book));
     }
 
     @GetMapping(value = "getAvailableBooksWithTitle")
-    public List<BookDto> getAvailableBooksWithTitle(@RequestParam String title) throws TitleNotFoundException {
+    public List<BookDto> getAvailableBooksWithTitle(@RequestParam String title) {
         return bookMapper.mapListBookToListBookDto(bookService.getAvailableBooksWithTitle(title));
     }
 
