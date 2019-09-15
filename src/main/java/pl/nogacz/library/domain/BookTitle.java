@@ -1,6 +1,5 @@
 package pl.nogacz.library.domain;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,14 +29,13 @@ public class BookTitle {
     private String author;
 
     @NotNull
-    @Column(name = "date")
-    private LocalDate date;
+    @Column(name = "publication_date")
+    private LocalDate publicationDate;
 
     @OneToMany(
             targetEntity = Book.class,
             mappedBy = "bookTitle",
             fetch = FetchType.EAGER
     )
-    @JsonManagedReference
     private List<Book> books = new ArrayList<>();
 }

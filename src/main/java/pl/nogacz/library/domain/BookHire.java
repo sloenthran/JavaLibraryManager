@@ -25,13 +25,11 @@ public class BookHire {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "book_id")
-    @JsonBackReference
     private Book book;
 
     @NotNull
     @ManyToOne
     @JoinColumn(name = "user_id")
-    @JsonBackReference
     private User user;
 
     @NotNull

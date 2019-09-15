@@ -38,6 +38,10 @@ public class BookService {
         return bookRepository.findById(id).orElseThrow(BookNotFoundException::new);
     }
 
+    public BookTitle getBookTitle(Long id) throws TitleNotFoundException {
+        return bookTitleRepository.findById(id).orElseThrow(TitleNotFoundException::new);
+    }
+
     public Book saveBook(Book book) {
         return bookRepository.save(book);
     }

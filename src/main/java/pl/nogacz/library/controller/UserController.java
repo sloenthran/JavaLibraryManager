@@ -3,6 +3,7 @@ package pl.nogacz.library.controller;
 import org.springframework.web.bind.annotation.*;
 import pl.nogacz.library.controller.exception.UserNotFoundException;
 import pl.nogacz.library.domain.User;
+import pl.nogacz.library.mapper.UserMapper;
 import pl.nogacz.library.service.UserService;
 
 import java.util.List;
@@ -12,9 +13,11 @@ import java.util.List;
 @RequestMapping(value = "/v1/user", produces = "application/json")
 public class UserController {
     private UserService userService;
+    private UserMapper userMapper;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserMapper userMapper) {
         this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping(value = "getUser")

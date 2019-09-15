@@ -24,7 +24,6 @@ public class Book {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "title_id")
-    @JsonBackReference
     private BookTitle bookTitle;
 
     @NotNull
@@ -37,6 +36,5 @@ public class Book {
             mappedBy = "book",
             fetch = FetchType.EAGER
     )
-    @JsonManagedReference
     private List<BookHire> bookHires = new ArrayList<>();
 }
