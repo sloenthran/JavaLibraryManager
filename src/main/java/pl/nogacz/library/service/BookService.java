@@ -46,14 +46,16 @@ public class BookService {
         return bookRepository.save(book);
     }
 
-    public List<Book> getAvailableBooksWithTitle(String title) throws TitleNotFoundException {
-        BookTitle bookTitle = bookTitleRepository.findByTitleLike(title).orElseThrow(TitleNotFoundException::new);
+    public List<Book> getAvailableBooksWithTitle(String title) {
+        BookTitle bookTitle = bookTitleRepository.findByTitleLike(title).orElse(null);
 
         List<Book> availableBooks = new ArrayList<>();
 
-        for(Book book : bookTitle.getBooks()) {
-            if(book.getBookStatus().equals(BookStatus.IN_LIBRARY)) {
-                availableBooks.add(book);
+        if(bookTitle != null) {
+            for (Book book : bookTitle.getBooks()) {
+                if (book.getBookStatus().equals(BookStatus.IN_LIBRARY)) {
+                    availableBooks.add(book);
+                }
             }
         }
 

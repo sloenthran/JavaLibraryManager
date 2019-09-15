@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -14,4 +15,5 @@ public class UserDto {
     private String name;
     private String surname;
     private LocalDate registerDate;
+    private List<BookHireDto> bookHires;
 }

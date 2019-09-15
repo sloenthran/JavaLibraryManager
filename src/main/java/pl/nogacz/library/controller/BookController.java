@@ -26,7 +26,7 @@ public class BookController {
     }
 
     @PostMapping(value = "addTitle", consumes = "application/json")
-    public void addTitle(@RequestBody BookTitleDto bookTitle) throws TitleNotFoundException {
+    public void addTitle(@RequestBody BookTitleDto bookTitle) {
         bookService.addTitle(bookMapper.mapBookTitleDtoToBookTitle(bookTitle));
     }
 
