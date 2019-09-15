@@ -83,8 +83,9 @@ public class BookService {
         Book book = bookHire.getBook();
         book.setBookStatus(bookStatus);
 
-        bookRepository.save(book);
+        bookHire.setDateReturn(LocalDate.now());
 
-        bookHireRepository.delete(bookHire);
+        bookRepository.save(book);
+        bookHireRepository.save(bookHire);
     }
 }
